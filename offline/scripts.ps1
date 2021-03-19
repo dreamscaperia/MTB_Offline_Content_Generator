@@ -16,7 +16,7 @@ Get-Content .\manifests-v2.X\*.xml|%{
 }
 If ((test-path env:CY_TOOLS_PATHS) -and (Get-ChildItem env:CY_TOOLS_PATHS).value.length -gt 0) {
     $cytp=(Get-ChildItem env:CY_TOOLS_PATHS).value.Replace("/","\")
-    $loc=(Get-Location).Path.Replace(":","").Replace("\","/")
+    $loc=(Get-Location).Path.Replace(":","").Replace("\","/").Replace(" ", "\ ")
     Invoke-Expression $cytp"\modus-shell\bin\bash --login -i -c `"cd /cygdrive/"$loc";./update.bash`""
     if (Test-Path .\update.bash) {Remove-Item .\update.bash}
 } else {
