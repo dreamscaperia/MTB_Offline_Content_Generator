@@ -14,7 +14,7 @@ Get-Content .\manifests-v2.X\*.xml|%{
         "git clone --verbose --progress --bare "+$matches[0]+" ./git/"+$dirname+"/"+$($splits[$splits.count-1])+"`n" | Out-File .\update.bash -Append -Encoding ascii -NoNewline
     }
 }
-If ((test-path env:CY_TOOLS_PATHS1) -and (Get-ChildItem env:CY_TOOLS_PATHS).value.length -gt 0) {
+If ((test-path env:CY_TOOLS_PATHS) -and (Get-ChildItem env:CY_TOOLS_PATHS).value.length -gt 0) {
     $cytp=(Get-ChildItem env:CY_TOOLS_PATHS).value.Replace("/","\")
     $loc=(Get-Location).Path.Replace(":","").Replace("\","/")
     Invoke-Expression $cytp"\modus-shell\bin\bash --login -i -c `"cd /cygdrive/"$loc";./update.bash`""

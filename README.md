@@ -10,7 +10,7 @@ However the official package becomes quite out-of-date. To fix this once for all
 
 The generator requires ModusToolbox 2.x and PowerShell (>=v5.0) to be installed on your Computer. The generated package might work on Windows/MacOS/Linux but the generator only works on Windows.
 
-It's recommended to run the generator on an Windows 10 Computer because PowerShell (>=5.0) is included by default. For Windows 8.1 and earlier, install/update the PowerShell manually.
+It's recommended to run the generator on a Windows 10 Computer because PowerShell (>=5.0) is included by default. For Windows 8.1 and earlier, install/update the PowerShell manually.
 
 The generator needs open and persistent Internet access during the whole generating process. Ensure you have granted access to github.com and all its subsidiaries before proceeding.
 
@@ -42,4 +42,4 @@ d) Third-Party dependencies might be cached during the generation. But the gener
 
 e) There is NO WARRANTY, to the extent permitted by law.
 
-f) For more infomation, see: [*ModusToolbox-offline-libraries*](https://community.cypress.com/t5/Resource-Library/ModusToolbox-offline-libraries/ta-p/252288)
+f) For more infomation, see: [*ModusToolbox offline libraries*](https://community.cypress.com/t5/Resource-Library/ModusToolbox-offline-libraries/ta-p/252288)
