@@ -19,7 +19,7 @@ The generator needs open and persistent Internet access during the whole generat
 
 a) **(!!!)** Ensure the environment variable **CY_TOOLS_PATHS** is explicitly added to the environment variables, even if you have installed ModusToolbox to the default location. To do this on Windows, go to ***System Properties --> Advanced --> Environment Variables***. Ensure the value references to the ModusToolbox tools directory **tools_X.Y** correctly, and you must use forward slashes in the variable’s path. For more information, see [*ModusToolbox User Guide*](https://www.cypress.com/file/512716/download).
 
-b) **(!!!)** Also, remember to delete the environment variable **CyRemoteManifestOverride** if you find it in the environment variables. Because it will interfere with the offline mode of ModusToolbox and cause incoherence.
+b) **(!!!)** Also, remember to delete the environment variable **CyRemoteManifestOverride** AND **CY_GETLIBS_CACHE_PATH** if you find it in the environment variables. Because it will interfere with the offline mode of ModusToolbox and cause incoherence.
 
 c) Download the ModusToolbox Offline Content Package Generator. Unzip it to the preferred location. You'll get a directory named **offline** and it includes the script files. Enter that directory.
 

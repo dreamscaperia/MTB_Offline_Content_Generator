@@ -6,7 +6,8 @@ if (Test-Path .\update.bash) {Remove-Item .\update.bash}
 "rm -rf ./git`n" | Out-File .\update.bash -Append -Encoding ascii -NoNewline
 Get-Content .\manifests-v2.X\*.xml|%{
 #    if($_ -match "(?<=>)http.*cypresssemiconductorco.*(?=</)")
-    if($_ -match "(?<=>)http.*github\.com\/.*(?=</)")
+#    if($_ -match "(?<=>)http.*github\.com\/.*(?=</)")
+    if($_ -match "(?<=uri>)http.*\/.*(?=</)")
     {
         "Discovered: "+$matches[0]
         $splits=$matches[0].Split("/");
@@ -23,4 +24,12 @@ If ((test-path env:CY_TOOLS_PATHS) -and (Get-ChildItem env:CY_TOOLS_PATHS).value
     echo "Error: Cannot detect environment variable CY_TOOLS_PATHS. Please explicitly add it to environment variables and re-run the generator."
     pause
 }
-quit
+If (test-path env:CyRemoteManifestOverride) {
+    echo "Error: environment variable CyRemoteManifestOverride detected. Please REMOVE it from environment variables and re-run the generator."
+    pause
+}
+If (test-path env:CY_GETLIBS_CACHE_PATH) {
+    echo "Error: environment variable CY_GETLIBS_CACHE_PATH detected. Please REMOVE it from environment variables and re-run the generator."
+    pause
+}
+exit
