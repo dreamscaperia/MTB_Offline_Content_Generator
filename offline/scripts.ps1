@@ -3,33 +3,47 @@ Expand-Archive -Path .\mtb-super-manifest.zip -DestinationPath .\manifests-v2.X 
 #Remove-Item -Recurse -Force .\git
 if (Test-Path .\update.bash) {Remove-Item .\update.bash}
 "#!/bin/bash`n" | Out-File .\update.bash -Append -Encoding ascii -NoNewline
-"rm -rf ./git`n" | Out-File .\update.bash -Append -Encoding ascii -NoNewline
+"git config --global http.sslVerify false`n" | Out-File .\update.bash -Append -Encoding ascii -NoNewline
+"git config --global https.sslVerify false`n" | Out-File .\update.bash -Append -Encoding ascii -NoNewline
+#"rm -rf ./git`n" | Out-File .\update.bash -Append -Encoding ascii -NoNewline
 Get-Content .\manifests-v2.X\*.xml|%{
 #    if($_ -match "(?<=>)http.*cypresssemiconductorco.*(?=</)")
 #    if($_ -match "(?<=>)http.*github\.com\/.*(?=</)")
     if($_ -match "(?<=uri>)http.*\/.*(?=</)")
     {
         "Discovered: "+$matches[0]
-        $splits=$matches[0].Split("/");
-        $dirname=$matches[0].Replace("<", "_").Replace(">", "_").Replace(":", "_").Replace("`"", "_").Replace("/", "_").Replace("\\", "_").Replace("|", "_").Replace("\?", "_").Replace("\*", "_");
-        "git clone --verbose --progress --bare "+$matches[0]+" ./git/"+$dirname+"/"+$($splits[$splits.count-1])+"`n" | Out-File .\update.bash -Append -Encoding ascii -NoNewline
+        $splits = $matches[0].Split("/");
+        $dirname = $matches[0].Replace("<", "_").Replace(">", "_").Replace(":", "_").Replace("`"", "_").Replace("/", "_").Replace("\\", "_").Replace("|", "_").Replace("\?", "_").Replace("\*", "_");
+        $librepo = "./git/"+$dirname+"/"+$($splits[$splits.count-1])
+        #"git clone --verbose --progress --bare "+$matches[0]+" ./git/"+$dirname+"/"+$($splits[$splits.count-1])+"`n" | Out-File .\update.bash -Append -Encoding ascii -NoNewline
+        if(Test-Path ((Get-Location).Path.toString()+$librepo)){
+            "pushd "+$librepo+"`n" | Out-File .\update.bash -Append -Encoding ascii -NoNewline
+            "git config remote.origin.fetch 'refs/heads/*:refs/heads/*'`n" | Out-File .\update.bash -Append -Encoding ascii -NoNewline
+            "git fetch --verbose --progress --all --tags --force`n" | Out-File .\update.bash -Append -Encoding ascii -NoNewline
+            "popd`n" | Out-File .\update.bash -Append -Encoding ascii -NoNewline
+        } else {
+            "git clone --verbose --progress --bare "+$matches[0]+" "+$librepo+"`n" | Out-File .\update.bash -Append -Encoding ascii -NoNewline
+        }
     }
 }
-If ((test-path env:CY_TOOLS_PATHS) -and (Get-ChildItem env:CY_TOOLS_PATHS).value.length -gt 0) {
-    $cytp=(Get-ChildItem env:CY_TOOLS_PATHS).value.Replace("/","\")
-    $loc=(Get-Location).Path.Replace(":","").Replace("\","/").Replace(" ", "\ ")
+$InstPath = Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall |%{if($_.GetValue("DisplayName") -like "*ModusToolbox*"){$_.GetValue("InstallLocation")}}|Select-Object -Last 1
+$cytp = Get-ChildItem -Path $instpath -Filter "tool*"|Select-Object -Last 1|%{$_.fullname}
+#If ((test-path env:CY_TOOLS_PATHS) -and (Get-ChildItem env:CY_TOOLS_PATHS).value.length -gt 0) {
+If (test-path $cytp) {
+    #$cytp=(Get-ChildItem env:CY_TOOLS_PATHS).value.Replace("/","\")
+    $loc = (Get-Location).Path.Replace(":","").Replace("\","/").Replace(" ", "\ ")
     Invoke-Expression $cytp"\modus-shell\bin\bash --login -i -c `"cd /cygdrive/"$loc";./update.bash`""
     if (Test-Path .\update.bash) {Remove-Item .\update.bash}
 } else {
-    echo "Error: Cannot detect environment variable CY_TOOLS_PATHS. Please explicitly add it to environment variables and re-run the generator."
+    echo "Error: Cannot detect ModusToolbox. Please INSTALL it on your computer first and then re-run the generator."
     pause
 }
 If (test-path env:CyRemoteManifestOverride) {
-    echo "Error: environment variable CyRemoteManifestOverride detected. Please REMOVE it from environment variables and re-run the generator."
+    echo "Error: environment variable CyRemoteManifestOverride detected. Please REMOVE it from environment variables so you can use the offline mode."
     pause
 }
 If (test-path env:CY_GETLIBS_CACHE_PATH) {
-    echo "Error: environment variable CY_GETLIBS_CACHE_PATH detected. Please REMOVE it from environment variables and re-run the generator."
+    echo "Error: environment variable CY_GETLIBS_CACHE_PATH detected. Please REMOVE it from environment variables to avoid unexpected results."
     pause
 }
 exit
