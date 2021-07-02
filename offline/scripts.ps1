@@ -31,8 +31,9 @@ $cytp = Get-ChildItem -Path $instpath -Filter "tool*"|Select-Object -Last 1|%{$_
 #If ((test-path env:CY_TOOLS_PATHS) -and (Get-ChildItem env:CY_TOOLS_PATHS).value.length -gt 0) {
 If (test-path $cytp) {
     #$cytp=(Get-ChildItem env:CY_TOOLS_PATHS).value.Replace("/","\")
-    $loc = (Get-Location).Path.Replace(":","").Replace("\","/").Replace(" ", "\ ")
-    Invoke-Expression $cytp"\modus-shell\bin\bash --login -i -c `"cd /cygdrive/"$loc";./update.bash`""
+    #.Replace("+", "\+").Replace("%", "\%").Replace("~", "\~").Replace("-", "\-").Replace(".", "\.").Replace("#", "\#")
+    $loc = (Get-Location).Path.Replace(":","").Replace("\","/").Replace(" ", "\ ").Replace(";", "\;").Replace("'", "\'").Replace("!", "\!").Replace("$", "\$").Replace("{", "\{").Replace("}", "\}").Replace("(", "\(").Replace(")", "\)").Replace("[", "\[").Replace("]", "\]").Replace("&", "\&").Replace("=", "\=")
+    Invoke-Expression $cytp"\modus-shell\bin\bash --login -i -c `'cd /cygdrive/"$loc";./update.bash`'"
     if (Test-Path .\update.bash) {Remove-Item .\update.bash}
 } else {
     echo "Error: Cannot detect ModusToolbox. Please INSTALL it on your computer first and then re-run the generator."
