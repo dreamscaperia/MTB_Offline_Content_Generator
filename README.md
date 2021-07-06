@@ -12,7 +12,7 @@ The generator requires ModusToolbox 2.x and PowerShell (>=v5.0) to be installed 
 
 It's recommended to run the generator on a Windows 10 Computer because PowerShell (>=5.0) is included by default. For Windows 8.1 and earlier, install/update the PowerShell manually.
 
-The generator needs open and persistent Internet access during the whole generating process. Ensure you have granted access to github.com and all its subsidiaries before proceeding.
+The generator needs open and persistent Internet access during the whole generating process. Ensure you have granted access to github.com and all its subsidiaries before proceeding. "sslVerify=false" will be now added to gitconfig to ensure the download process under some monitored networks. Be aware of this change and stop using the tool if you cannot afford MITM.
 
 
 # 2. Work Flow
