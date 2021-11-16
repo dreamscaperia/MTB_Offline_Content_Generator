@@ -1,4 +1,8 @@
-﻿Invoke-WebRequest -Uri https://itools.infineon.cn/mtb/manifests/mtb-super-manifest.zip -OutFile ./mtb-super-manifest.zip
+﻿# Auther: dreamscaperia
+# Version: 2.2.0.8
+# Title: ModusToolbox Offline Content Generator
+# Desc: The ModusToolbox Offline Content Generator is released to help you generate your own and up-to-date ModusToolbox offline content package.
+Invoke-WebRequest -Uri https://itools.infineon.cn/mtb/manifests/mtb-super-manifest.zip -OutFile ./mtb-super-manifest.zip
 Expand-Archive -Path .\mtb-super-manifest.zip -DestinationPath .\manifests-v2.X -Force
 #Remove-Item -Recurse -Force .\git
 if (Test-Path .\update.bash) {Remove-Item .\update.bash}
@@ -40,11 +44,11 @@ If (test-path $cytp) {
     pause
 }
 If (test-path env:CyRemoteManifestOverride) {
-    echo "Error: environment variable CyRemoteManifestOverride detected. Please REMOVE it from environment variables so you can use the offline mode."
+    echo "Error: environment variable CyRemoteManifestOverride detected. Please REMOVE it from the environment variables so you can use the offline mode."
     pause
 }
 If (test-path env:CY_GETLIBS_CACHE_PATH) {
-    echo "Error: environment variable CY_GETLIBS_CACHE_PATH detected. Please REMOVE it from environment variables to avoid unexpected results."
+    echo "Error: environment variable CY_GETLIBS_CACHE_PATH detected. Please REMOVE it from the environment variables to avoid unexpected results."
     pause
 }
 exit

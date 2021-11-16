@@ -17,7 +17,7 @@ The generator needs open and persistent Internet access during the whole generat
 
 # 2. Work Flow
 
-a) **(!!!)** Remember to delete the environment variable **CyRemoteManifestOverride** AND **CY_GETLIBS_CACHE_PATH** if you find it in the environment variables. Because it will interfere with the offline mode of ModusToolbox and cause incoherence.
+a) **(!!!)** Remember to delete **CyRemoteManifestOverride** AND **CY_GETLIBS_CACHE_PATH** if you find it in the environment variables. Because it will interfere with the offline mode of ModusToolbox and cause incoherence.
 
 b) Download the ModusToolbox Offline Content Package Generator. Unzip it to the preferred location. You'll get a directory named **offline** and it includes the script files. Enter that directory.
 
