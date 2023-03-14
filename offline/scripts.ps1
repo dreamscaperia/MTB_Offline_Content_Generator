@@ -1,5 +1,5 @@
-﻿# Auther: dreamscaperia
-# Version: 2.2.2.0
+﻿# Auther: dreamscaperia @github.com
+# Version: 2.2.3.0
 # Title: ModusToolbox Offline Content Generator
 # Desc: The ModusToolbox Offline Content Generator is released to help you generate your own and up-to-date ModusToolbox offline content package.
 

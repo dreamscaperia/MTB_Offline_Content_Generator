@@ -1,2 +1,2 @@
 @echo off
-powershell ./scripts.ps1
+powershell -ExecutionPolicy Bypass -file ./scripts.ps1
