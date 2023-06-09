@@ -5,7 +5,7 @@
 
 chcp 65001
 
-Invoke-WebRequest -Uri https://gitee.com/dreamscaperia/mtb-super-manifest/raw/master/mtb-super-manifest.zip -OutFile ./mtb-super-manifest.zip
+Invoke-WebRequest -Uri https://gitee.com/dreamscaperia/mtb-manifest-archives/raw/master/mtb-super-manifest.zip -OutFile ./mtb-super-manifest.zip
 Expand-Archive -Path .\mtb-super-manifest.zip -DestinationPath .\manifests-v2.X -Force
 
 echo "Begin to parse and wash the manifests...";
