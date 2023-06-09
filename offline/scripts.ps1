@@ -1,5 +1,5 @@
 ﻿# Auther: dreamscaperia @github.com
-# Version: 2.4.0.0
+# Version: 2.5.0.0
 # Title: ModusToolbox Offline Content Generator
 # Desc: The ModusToolbox Offline Content Generator is released to help you generate your own and up-to-date ModusToolbox offline content package.
 
@@ -7,6 +7,21 @@ chcp 65001
 
 Invoke-WebRequest -Uri https://gitee.com/dreamscaperia/mtb-super-manifest/raw/master/mtb-super-manifest.zip -OutFile ./mtb-super-manifest.zip
 Expand-Archive -Path .\mtb-super-manifest.zip -DestinationPath .\manifests-v2.X -Force
+
+echo "Begin to parse and wash the manifests...";
+Get-ChildItem -Path .\manifests-v2.X -File -Filter *.xml|%{
+    Get-Content $_.FullName -Encoding UTF8| %{
+        if($_ -match "http.*?\.xml"){
+            $str = $Matches[0].Split('/');
+            $_ -replace $Matches[0], $str[-1]
+        } else {
+            $_
+        };
+    } | Set-Content -Path $_.FullName -Encoding UTF8 -ErrorVariable sorrytonull -ErrorAction SilentlyContinue
+}
+echo "Finished handling manifests.";
+echo "";
+
 #Remove-Item -Recurse -Force .\git
 if (Test-Path .\update.bash) {Remove-Item .\update.bash}
 "#!/bin/bash`n" | Out-File .\update.bash -Append -Encoding ascii -NoNewline
