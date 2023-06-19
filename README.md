@@ -1,5 +1,7 @@
 The **ModusToolbox Offline Content Generator** is released to help you generate your own and up-to-date ModusToolbox offline content package.
 
+>Important Update: Offline Content has been deprecated since ModusToolbox 3.1, Jun 12, 2023. Instead, the new feature Local Content Storage is now introduced, making working offline easier.
+
 ModusToolbox offline content package was first introduced in April, 2020. 
 > "This package enables you to use ModusToolbox Project Creator and Library Manager tools without a persistent internet connection. It contains all the ModusToolbox repos referenced in the ModusToolbox manifest files. We continue to recommend working with the online content - so you always have access to the latest software - but this is a useful alternative method of accessing libraries for users who are frequently working offline."
 
@@ -34,7 +36,7 @@ a) Use this feature for emergency only. Online content is always prior to offlin
 
 b) The offline package is always generated using the latest content online. The version and release date of the generator will *not* put a constraint on fetching the latest content.
 
-c) The generated offline package is compatible with ModusToolbox 1.x, 2.x and hopefully later.
+c) The generated offline package is compatible with ModusToolbox 1.x, 2.x and 3.0. Pleae use Local Content Storage instead for MTB 3.1 and later.
 
 d) Third-Party dependencies might be cached during the generation. But the generator itself doesn't contain Third-Party dependencies/repos/code.
 
