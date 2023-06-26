@@ -9,15 +9,18 @@ Invoke-WebRequest -Uri https://gitee.com/dreamscaperia/mtb-manifest-archives/raw
 Expand-Archive -Path .\mtb-super-manifest.zip -DestinationPath .\manifests-v2.X -Force
 
 echo "Begin to parse and wash the manifests...";
-Get-ChildItem -Path .\manifests-v2.X -File -Filter *.xml|%{
-    Get-Content $_.FullName -Encoding UTF8| %{
-        if($_ -match "http.*?\.xml"){
+Get-ChildItem -Path .\manifests-v2.X -File -Filter "*.xml"|%{
+    (Get-Content $_.FullName -Encoding UTF8| %{
+        if($_ -match 'http.*?\.xml'){
             $str = $Matches[0].Split('/');
-            $_ -replace $Matches[0], $str[-1]
-        } else {
-            $_
-        };
-    } | Set-Content -Path $_.FullName -Encoding UTF8 -ErrorVariable sorrytonull -ErrorAction SilentlyContinue
+            $_ = $_ -replace $Matches[0], $str[-1]
+        }
+        if($_ -match '(?<=capability\-url\=\")http.*?\.json'){
+            $str = $Matches[0].Split('/');
+            $_ = $_ -replace $Matches[0], $str[-1]
+        }
+        $_
+    }) | Set-Content -Path $_.FullName -Encoding UTF8 -ErrorVariable sorrytonull -ErrorAction SilentlyContinue
 }
 echo "Finished handling manifests.";
 echo "";
