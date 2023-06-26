@@ -1,4 +1,4 @@
-Important Update: Offline Content has been deprecated since ModusToolbox 3.1, Jun 12, 2023. Instead, the new feature ***Local Content Storage*** is now introduced, making working offline easier. See its user guide for more details.
+Important Update: Offline Content has been deprecated since ModusToolbox 3.1, Jun 12, 2023. Instead, the new feature [***Local Content Storage***](https://community.infineon.com/t5/ModusToolbox-General/Offline-content-users-Try-our-new-local-content-storage-feature/td-p/447399) is now introduced, making working offline easier.
 ------------------------------------------------------------
 
 The **ModusToolbox Offline Content Generator** is released to help you generate your own and up-to-date ModusToolbox offline content package.
@@ -43,4 +43,4 @@ d) Third-Party dependencies might be cached during the generation. But the gener
 
 e) There is NO WARRANTY, to the extent permitted by law.
 
-f) For more infomation, see: [*ModusToolbox offline libraries*](https://community.cypress.com/t5/Resource-Library/ModusToolbox-offline-libraries/ta-p/252288)
+f) For more infomation, see: [*ModusToolbox offline libraries*](https://community.infineon.com/t5/Resource-Library/ModusToolbox-Offline-Libraries/ta-p/252265)
